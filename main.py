@@ -47,6 +47,21 @@ def ordered_shows_2():
     return jsonify(shows)
 
 
+@app.route('/filter-actors')
+def filter_actors():
+    gen = 1
+    actors = queries.get_filtred_actors(gen)
+    data = queries.get_genres()
+    return render_template('filter-actors.html', actors=actors, data=data)
+
+
+@app.route('/filter-actors_2', methods=['GET', 'POST'])
+def filter_actors_2():
+    gen = request.args.get('input-text')
+    actors = queries.get_filtred_actors(gen)
+    return jsonify(actors)
+
+
 def main():
     app.run(debug=False)
 
